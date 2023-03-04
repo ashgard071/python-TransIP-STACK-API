@@ -6,10 +6,10 @@ from posixpath import join, realpath, dirname, basename
 
 from requests import RequestException
 
-from transip_stack.http import StackHTTP
-from transip_stack.users import StackUser
-from transip_stack.nodes import StackNode, StackFile, StackDirectory
-from transip_stack.exceptions import StackException
+from python_transip_stack.http import StackHTTP
+from python_transip_stack.users import StackUser
+from python_transip_stack.nodes import StackNode, StackFile, StackDirectory
+from python_transip_stack.exceptions import StackException
 
 
 class Stack:
@@ -258,6 +258,78 @@ class Stack:
             raise StackException("Directory '{}' is a file!".format(name))
 
         return node
+
+    def move(self, src_file, dst_file) -> StackFile:
+        """
+        Move a file on Stack from source to destination
+        :param src_file: file name to move
+        :param dst_file: destination file name 
+        :return: Instance of a stack file
+        """
+        if isinstance(src_file, str) and isinstance(dst_file, str):
+            return self.__move(src=src_file, dst=dst_file)
+
+        # TODO able to use file objects
+#         if isinstance(file, str):
+#             with open(file, "rb") as fd:
+#                 return self.__upload(file=fd, remote=remote)
+
+        raise StackException(
+            "Source and destination file should be a path to a file on"
+            ", got: {}".format(type(file)))
+        
+    def __move(self, src, dst) -> StackFile:
+        """
+        Core logic of the move call
+        :param src: file name of source file
+        :param dst: file name of destination file
+        :return: StackFile instance
+        """
+        # TODO continue here!
+#         if not remote and not getattr(file, 'name', None):
+#             raise StackException(
+#                 "Unable to determine remote file name, either set "
+#                 "it via file.name or by passing the 'remote' parameter")
+
+#         name = remote or file.name
+#         path = join(self.__cwd, name)
+#         name = basename(name)
+
+        try:
+            resp = self.http.webdav('MOVE', src, headers={'Destination': dst}, stream=True)
+            assert resp.status_code == 201, 'Expected 201 (created) status code'
+            return self.file(dst)
+
+        except (AssertionError, RequestException) as e:
+            raise StackException(e)
+        
+    def delete(self, file) -> bool:
+        """
+        Delete a file on Stack
+        :param file: file name to delete
+        :return: bool
+        """
+        if isinstance(file, str):
+            return self.__delete(file=file)
+
+        raise StackException(
+            "File should be a path to a file on"
+            ", got: {}".format(type(file)))
+        
+    def __delete(self, file) -> bool:
+        """
+        Core logic of the delete call
+        :param file: file name to delete
+        :return: bool
+        """
+
+        try:
+            resp = self.http.webdav('DELETE', file, stream=True)
+            assert resp.status_code == 201, 'Expected 201 (created) status code'
+            return true
+
+        except (AssertionError, RequestException) as e:
+            raise StackException(e)
 
     def upload(self, file, *, remote: str = None) -> StackFile:
         """

@@ -3,7 +3,7 @@ from functools import lru_cache
 from requests import Session
 from bs4 import BeautifulSoup
 
-from transip_stack import __version__
+from python_transip_stack import __version__
 
 
 class StackHTTP(Session):
@@ -26,6 +26,9 @@ class StackHTTP(Session):
         :return: Server response
         """
         headers = kwargs.get("headers", {})
+
+        if 'Destination' in headers:
+            headers['Destination'] = self.__base + '/remote.php/webdav/' + headers['Destination'].lstrip('/')
 
         if self.expose_agent:
             headers["User-Agent"] = "Python-STACK-API/{}".format(__version__)

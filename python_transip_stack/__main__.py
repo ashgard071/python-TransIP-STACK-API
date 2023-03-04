@@ -3,8 +3,8 @@ from argparse import ArgumentParser
 from multiprocessing.pool import ThreadPool
 from threading import BoundedSemaphore
 
-from transip_stack.stack import Stack
-from transip_stack.utils import CustomHelpFormatter, directories, files
+from python_transip_stack.stack import Stack
+from python_transip_stack.utils import CustomHelpFormatter, directories, files
 
 
 lock = BoundedSemaphore()

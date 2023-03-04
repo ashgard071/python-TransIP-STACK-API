@@ -6,7 +6,7 @@ from typing import Union
 
 from requests import RequestException
 
-from transip_stack.exceptions import StackException
+from python_transip_stack.exceptions import StackException
 
 
 class StackNode:

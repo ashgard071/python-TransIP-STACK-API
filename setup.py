@@ -11,10 +11,10 @@ from setuptools import find_packages, setup, Command
 
 
 # Package meta-data.
-NAME = 'transip-stack-api'
-PACKAGE = 'transip_stack'
+NAME = 'python-transip-stack-api'
+PACKAGE = 'python_transip_stack'
 DESCRIPTION = 'Unofficial wrapper for the TransIP STACK API'
-URL = 'https://github.com/Paradoxis/TransIP-STACK-API'
+URL = 'https://github.com/ashgard071/python-TransIP-STACK-API'
 EMAIL = 'luke@paradoxis.nl'
 AUTHOR = 'Luke Paris (Paradoxis)'
 REQUIRES_PYTHON = '>=3.5.0'
@@ -39,7 +39,7 @@ EXTRAS = {
 
 ENTRY_POINTS = {
     'console_scripts': [
-        'stack=transip_stack.__main__:main',
+        'stack=python_transip_stack.__main__:main',
     ]
 }
 

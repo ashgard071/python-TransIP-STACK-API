@@ -10,9 +10,9 @@ from unittest.mock import patch, MagicMock
 
 from requests import Response, RequestException
 
-from transip_stack import Stack, StackException
-from transip_stack.nodes import StackDirectory, StackFile
-from transip_stack.users import StackUser
+from python_transip_stack import Stack, StackException
+from python_transip_stack.nodes import StackDirectory, StackFile
+from python_transip_stack.users import StackUser
 
 
 class TransIpStackTestCase(TestCase):

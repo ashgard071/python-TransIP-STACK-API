@@ -2,9 +2,9 @@ __version__ = '1.3.3'
 
 import warnings
 
-from transip_stack.exceptions import StackException
-from transip_stack.http import StackHTTP
-from transip_stack.stack import Stack
+from python_transip_stack.exceptions import StackException
+from python_transip_stack.http import StackHTTP
+from python_transip_stack.stack import Stack
 
 # Log deprecation warning
 warnings.warn(
